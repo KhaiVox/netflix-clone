@@ -98,6 +98,7 @@ const Container = styled.div`
         padding: 0 4rem;
         align-items: center;
         transition: 0.3s ease-in-out;
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
         .left {
             gap: 2rem;
             .brand {
@@ -135,7 +136,7 @@ const Container = styled.div`
                 gap: 0.4rem;
                 align-items: center;
                 justify-content: center;
-                padding: 0.2rem;
+                padding: 0.4rem;
                 padding-left: 0.5rem;
                 button {
                     background-color: transparent;
@@ -151,6 +152,7 @@ const Container = styled.div`
                 input {
                     width: 0;
                     opacity: 0;
+                    padding-left: 4px;
                     visibility: hidden;
                     transition: 0.3s ease-in-out;
                     background-color: transparent;
@@ -171,7 +173,6 @@ const Container = styled.div`
                     width: 100%;
                     opacity: 1;
                     visibility: visible;
-                    padding: 4px;
                 }
             }
         }

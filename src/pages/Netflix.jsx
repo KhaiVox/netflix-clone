@@ -1,18 +1,40 @@
-import React, { useState } from 'react'
-import NavBar from '../components/NavBar'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-
-import backgroundImage from '../assets/home.jpg'
-import MovieLogo from '../assets/homeTitle.webp'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaPlay } from 'react-icons/fa'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 
+import NavBar from '../components/NavBar'
+import backgroundImage from '../assets/home.jpg'
+import MovieLogo from '../assets/homeTitle.png'
+import { fetchMovies, getGenres } from '../store'
+import Slider from '../components/Slider'
+
 export default function Netflix() {
     const [isScrolled, setIsScrolled] = useState(false)
+    const movies = useSelector((state) => state.netflix.movies)
+    const genres = useSelector((state) => state.netflix.genres)
+    const genresLoaded = useSelector((state) => state.netflix.genresLoaded)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(getGenres())
+    })
+
+    useEffect(() => {
+        if (genresLoaded) {
+            dispatch(fetchMovies({ genres, type: 'all' }))
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [genresLoaded])
+
+    console.log(genres)
+    console.log(movies)
+
+    // Scroll xuống nav sẽ có background đen
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true)
         return () => (window.onscroll = null)
@@ -36,6 +58,7 @@ export default function Netflix() {
                     </div>
                 </div>
             </div>
+            <Slider movies={movies} />
         </Container>
     )
 }
@@ -56,8 +79,8 @@ const Container = styled.div`
             bottom: 5rem;
             .logo {
                 img {
-                    width: 100%;
-                    height: 100%;
+                    width: 600px;
+                    height: auto;
                     margin-left: 5rem;
                 }
             }
