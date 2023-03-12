@@ -1,4 +1,5 @@
 # dependencies
-/node_modules
+/netflix-ui/node_modules
+/netflix-api/node_modules
 
 
