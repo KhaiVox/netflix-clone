@@ -10,7 +10,7 @@ const initialState = {
     genres: [],
 }
 
-// Lấy thể loại
+// Lấy phim tương ứng thể loại
 export const getGenres = createAsyncThunk('netflix/genres', async () => {
     const {
         data: { genres },
@@ -53,8 +53,18 @@ export const fetchMovies = createAsyncThunk('netflix/trending', async ({ type },
     const {
         netflix: { genres },
     } = thunkApi.getState()
-    const data = getRawData(`${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}`, genres, true)
-    return data
+    return getRawData(`${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}`, genres, true)
+})
+
+// Lấy danh sách thể loại
+export const fetchDataByGenre = createAsyncThunk('netflix/genre', async ({ genre, type }, thunkAPI) => {
+    const {
+        netflix: { genres },
+    } = thunkAPI.getState()
+    return getRawData(
+        `https://api.themoviedb.org/3/discover/${type}?api_key=3d39d6bfe362592e6aa293f01fbcf9b9&with_genres=${genre}`,
+        genres,
+    )
 })
 
 // Thiết lập trạng thái ban đầu cho đối tượng "phim"
@@ -67,6 +77,9 @@ const NetflixSlice = createSlice({
             state.genresLoaded = true
         })
         builder.addCase(fetchMovies.fulfilled, (state, action) => {
+            state.movies = action.payload
+        })
+        builder.addCase(fetchDataByGenre.fulfilled, (state, action) => {
             state.movies = action.payload
         })
     },

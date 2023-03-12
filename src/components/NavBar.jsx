@@ -1,9 +1,7 @@
 import { signOut } from 'firebase/auth'
 import { onAuthStateChanged } from 'firebase/auth'
-
 import { firebaseAuth } from '../utils/firebase-config'
 import { useNavigate } from 'react-router-dom'
-
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -95,7 +93,7 @@ const Container = styled.div`
         position: fixed;
         top: 0;
         z-index: 2;
-        padding: 0 4rem;
+        padding: 0 2rem;
         align-items: center;
         transition: 0.3s ease-in-out;
         background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);

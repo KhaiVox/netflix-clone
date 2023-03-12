@@ -9,6 +9,7 @@ import { BsCheck } from 'react-icons/bs'
 
 import video from '../assets/video.webm'
 
+// React.memo: tránh việc re-render không cần thiết
 export default React.memo(function Card({ movieData, isLiked = false }) {
     const [isHovered, setIsHovered] = useState(false)
 
@@ -80,11 +81,11 @@ const Container = styled.div`
         width: 20rem;
         position: absolute;
         top: -18vh;
-        left: 0;
+        left: -48px;
         border-radius: 0.3rem;
         box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
         background-color: #181818;
-        transition: 0.3s ease-in-out;
+        transition: 0.4s ease-in-out;
         .image-video-container {
             position: relative;
             height: 140px;
